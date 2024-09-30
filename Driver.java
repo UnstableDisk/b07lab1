@@ -1,16 +1,25 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Driver {
-	public static void main(String [] args) {
-		Polynomial p = new Polynomial();
-		System.out.println(p.evaluate(3));
-		double [] c1 = {6,0,0,5};
-		Polynomial p1 = new Polynomial(c1);
-		double [] c2 = {0,-2,0,0,-9};
-		Polynomial p2 = new Polynomial(c2);
-		Polynomial s = p1.add(p2);
-		System.out.println("s(0.1) = " + s.evaluate(0.1));
-		if(s.hasRoot(1))
-			System.out.println("1 is a root of s");
-		else
-			System.out.println("1 is not a root of s");
-	}
+    public static void main(String[] args) {
+        try {
+            // Step 1: Read a polynomial from the input file (formatted as "1+1x1+2x3")
+            File inputFile = new File("polynomial_input.txt");
+            Polynomial p1 = new Polynomial(inputFile);
+            System.out.println("Polynomial read from file: " + p1);
+
+            // Step 2: Save the polynomial to a new file
+            p1.saveToFile("polynomial_output.txt");
+            System.out.println("Polynomial saved to file 'polynomial_output.txt'.");
+
+            // Step 3: Example of evaluating the polynomial at x = 2
+            System.out.println("p1 evaluated at x = 2: " + p1.evaluate(2));
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Input file not found.");
+        }
+    }
 }
+
+
